@@ -78,32 +78,6 @@
 
         // adding the point to the graphic layer
         graphicsLayer.add(pointGraphic);
-
-        // Define the triangle's points
-        const trianglePoints = new Graphic({
-          type: "polygon",
-          symbol: simpleMarkerSymbol,
-          longitude: -97.750689,
-          latitude: 30.263098,
-          rings: [
-          [point.latitude + 0.01, point.longitude],
-          [point.latitude - 0.01, point.longitude - 0.01],
-          [point.latitude - 0.01, point.longitude + 0.01]
-        ],
-
-        // Create the triangle and add it to the map
-          type: "polygon",
-          geometry: trianglePoints,
-          symbol: {
-            type: "simple-fill",
-            color: [0, 0, 255, 0.5],
-            outline: {
-              color: [0, 0, 255],
-              width: 1
-            }
-          }
-        });
-        graphicsLayer.add(triangle);
     }) 
   </script>
 
