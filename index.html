@@ -30,7 +30,7 @@
 
       const view = new MapView({
           map: map,
-          center: [29.651634, -82.342812], // Longitude, latitude
+          center: [29.6516, -82.3428], // Longitude, latitude
           zoom: 13, // Zoom level
           container: "viewDiv" // Div element
         });
@@ -42,15 +42,15 @@
         // defining the geometry of the point
         const point = { //Create a point  
           type: "point",  
-          longitude: 29.651550,    //long lat of Stevie Ray Vaughan Statue
-          latitude: -82.342812
+          longitude: 29.6515,    //long lat of Gainesville
+          latitude: -82.3428
         };
 
         // defining the marker style
         const simpleMarkerSymbol = {  
           type: "simple-marker",  
           style: "square", // Change this to "square"
-          color: [139, 0, 0],  // Color 
+          color: [139, 0, 0],  // Color red
           outline: {  
             color: [255, 255, 255], // White  
             width: 1
