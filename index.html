@@ -38,14 +38,19 @@
         // Create a Graphic layer
         const graphicsLayer = new GraphicsLayer();  
         map.add(graphicsLayer); // Add it to the map
-
+        
         // defining the geometry of the point
         const point = { //Create a point  
           type: "point",  
           longitude: -82.3248,    //long lat of Gainesville
           latitude: 29.6516
         };
-
+        const point2 = { //Create a second point
+          type: "point",
+          longitude: -82.3431,    //long lat of Gainesville,
+          latitude: 29.6499
+        };
+          
         // defining the marker style
         const simpleMarkerSymbol = {  
           type: "simple-marker",  
@@ -56,20 +61,60 @@
             width: 2
           }
         };
-        //defining popup properties
-        const popupTemplate = {  
-          title: "Gainesville",  
-          content: "Welcome to Gainesville, FL!"
+
+        const simpleMarkerSymbol2 = {
+          type: "simple-marker",
+          style: "triangle", // Change this to "triangle"
+          color: [0, 139, 0],  // Color green
+          outline: {  
+            color: [255, 255, 255], // White  
+            width: 2
+          }
         };
-         // Create the graphic
-         const pointGraphic = new Graphic({
-          geometry: point,
-          symbol: simpleMarkerSymbol
+
+        //defining popup properties
+        constpopupTemplate = {  
+          title: "Gainesville",  
+          content: "Welcome to Gainesville, FL: The home of GATORS!"
+        };
+        const popupTemplate2 = {
+          title: "Turlington Plaza",  
+          content: "Welcome to Turlington Plaza: The home of GEOGATORS!"
+        };
+        
+        const attributes = {  
+          name: "Gainesville",  
+          location: "Florida"
+        };
+        const attributes2 = {
+          name: "Turlington Plaza",  
+          location: "Florida"
+        };
+
+        // Create the graphic
+           const pointGraphic = new Graphic({  
+             geometry: point,
+             symbol: simpleMarkerSymbol,
+             attributes: attributes
+          });
+
+           const pointGraphic2 = new Graphic({
+             geometry: point2,
+             symbol: simpleMarkerSymbol2
+         });
+        
+        //adding popup properties
+          popupTemplate: popupTemplate,
+          attributes; attributes;
+          popupTemplate2: popupTemplate2,
+          attributes2; attributes2;
         });
+
         // Add the graphic to the layer
         graphicsLayer.add(pointGraphic);
-          }) 
-        </script>
+        graphicsLayer.add(pointGraphic2);
+       });
+  </script>
 <!-- css to make a full screen map -->
 <style>
   html,
