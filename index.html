@@ -67,55 +67,23 @@
         graphicsLayer.add(pointGraphic);
           }) 
         </script>
-
-        <!-- css to make a full screen map -->
-        <style>
-          html,
-          body,
-          #viewDiv {
-
-        // defining the popup properties
-        const popupTemplate = {
-         title: "{Name}",
-         content: "{Description}"
-        }
-        const attributes = {
-         Name: "Stevie Ray Vaughan Statue",
-         Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick"
-        }
-
-        // Creating the point
-         const pointGraphic = new Graphic({  
-          geometry: point,  
-          symbol: simpleMarkerSymbol, 
-          
-          // adding popup properties
-          attributes: attributes,
-          popupTemplate: popupTemplate
-         });
-
-        // adding the point to the graphic layer
-        graphicsLayer.add(pointGraphic);
-    }) 
-  </script>
-
-  <!-- css to make a full screen map -->
-  <style>
-    html,
-    body,
-    #viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
+<!-- css to make a full screen map -->
+<style>
+  html,
+  body,
+  #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+</style>
 
 </head>
 <body>
 
-  <!-- the div to displays the map  -->
-  <div id="viewDiv"></div>
+<!-- the div to displays the map  -->
+<div id="viewDiv"></div>
 
 </body>
 </html>
