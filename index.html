@@ -56,7 +56,16 @@
             width: 2
           }
         };
-
+        //defining popup properties
+        const popupTemplate = {  
+          title: "Gainesville",  
+          content: "Welcome to Gainesville, FL!"
+        };
+         // Create the graphic
+         const pointGraphic = new Graphic({
+          geometry: point,
+          symbol: simpleMarkerSymbol
+        });
         // Add the graphic to the layer
         graphicsLayer.add(pointGraphic);
           }) 
