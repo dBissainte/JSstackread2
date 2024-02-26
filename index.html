@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Hello, Travelers!</title>
+  <title>Hello, AGOL!</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
@@ -10,18 +10,23 @@
   <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.25/"></script>
 
-  <!-- Adding the modules, API key, and map constant needed for a full screen map app -->
+  <!-- Adding the modules, API key, and map constant needed for a full screen map app-->
   <script>
-  
+
     require([
       "esri/config",
       "esri/Map",
       "esri/views/MapView",
-      "esri/layers/GraphicsLayer",
+      "esri/widgets/BasemapGallery",
+      "esri/widgets/Locate",
+      "esri/widgets/Search",
+      "esri/widgets/Expand",
       "esri/Graphic",
-      "esri/geometry/Point",
+      "esri/layers/GraphicsLayer",
       "esri/geometry/Polyline",
-  ], function(esriConfig, Map, MapView, GraphicsLayer, Graphic, Point, Polyline) {
+      "esri/geometry/Polygon",
+      "esri/layers/FeatureLayer",
+    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Expand, Graphic, GraphicsLayer, Polyline, Polygon, FeatureLayer) {
 
       esriConfig.apiKey = "AAPK38961f69b763446a8a93074277f6c658monrdVmdEHRWTyT7kHHF_0qYVXyDdCF8RQ2Z8pUR4r52dvVz8Ytp2CV1iEQsh2yt";
       const map = new Map({
@@ -30,64 +35,60 @@
 
       //view of Gainesville, FL
       const view = new MapView({
-          map: map,
-          center: [-82.3248, 29.6516], // Longitude, latitude
+        map: map,
+        center:[-82.3248, 29.6516], // Longitude, latitude
           zoom: 13, // Zoom level
-          container: "viewDiv" // Div element
-        });
+        container: "viewDiv" // Div element
+      });
 
-        // Create a Graphic layer
-        const graphicsLayer = new GraphicsLayer();  
-        map.add(graphicsLayer); // Add it to the map
-        
-        // defining the geometry of the point
-        const point = { //Create a point  
-          type: "point",  
-          longitude: -82.3248,    //long lat of Gainesville
-          latitude: 29.6516
-        };
+      //adding the const for the graphics layer
+      const graphicsLayer = new GraphicsLayer();
+      map.add(graphicsLayer);
 
-        // defining the marker style
-        const simpleMarkerSymbol = {  
-          type: "simple-marker",  
-          style: "square", // Change this to "square"
-          color: [139, 0, 0],  // Color red
-          outline: {  
-            color: [255, 255, 255], // White  
-            width: 2
-          }
-        };
+      //adding the const for the point for mount everest
+      const point = {
+        type: "point",
+        longitude: 86.925,
+        latitude: 27.988
+      };
 
-        //defining popup properties
-        const popupTemplate = {  
-          title: "Gainesville",  
-          content: "Welcome to Gainesville, FL: The home of GEOGATORS!"
+      //add the code to define the style for the point
+      const simpleMarkerSymbol = {
+        type: "simple-marker",
+        style: "square",
+        size: "20px",
+        color: [226, 119, 40], // Orange
+        outline: {
+          color: [255, 255, 255], // White
+          width: 2
         }
+      };
 
-        const attributes = {  
-          name: "Gainesville",  
-          location: "Florida"
-        };
+       //define the popup template
+       const popupTemplate = {
+        title: "{Name}",
+        content: "{Description}"
+      }
+      const attributes = {
+        Name: "Mount Everest",
+        Description: "The highest mountain in the world (Elevation of 29,035ft.)"
+      }
 
-         // Create the graphic
-         const pointGraphic = new Graphic({
-          geometry: point,
-          symbol: simpleMarkerSymbol,
-          
-          //adding popup properties
-          popupTemplate: popupTemplate,
-          attributes: attributes,
-        });
-        // Add the graphic to the layer
-        graphicsLayer.add(pointGraphic);
-      });  
+      //point together the geometry with the symbol to create a graphic
+      const pointGraphic = new Graphic({
+        geometry: point,
+        symbol: simpleMarkerSymbol,
+        attributes: attributes,
+        popupTemplate: popupTemplate
+      });
 
-      // Define the path of the hiking trail as an array of points
+      //add the graphic to the view
+      graphicsLayer.add(pointGraphic);
+
+     // Define the path of the hiking trail as an array of points
      const trailPath = [
-        [-82.3726, 29.6516], // UF
-        [-82.3431, 29.6499], // Turlington Plaza
-        [-82.3452, 29.6499], // Innovation Hub
-        [-82.3485, 29.6461], //Reitz Union
+      [86.9250, 27.9881],  // Mount Everest
+      [86.7140, 27.8069]   // Namche Bazaar
       ];
 
       // Create a polyline geometry from the path
@@ -125,25 +126,225 @@
 
       // Add the graphic to the map
       graphicsLayer.add(trailGraphic);
-       
+
+      // Rough approximation of the boundaries of Sagarmatha National Park
+      const parkBoundary = [
+        [86.7, 27.7],  
+        [86.8, 27.75],
+        [86.9, 27.76], 
+        [87.0, 27.77], 
+        [87.1, 27.8],  
+        [87.2, 27.85], 
+        [87.1, 27.9],  
+        [87.0, 27.95], 
+        [86.9, 28.0],  
+        [86.8, 28.05], 
+        [86.7, 28.1],  
+        [86.6, 28.05], 
+        [86.5, 28.0],  
+        [86.6, 27.85], 
+        [86.7, 27.7]   
+    ]
+
+        // Create a polygon geometry
+        const parkPolygon = new Polygon({
+          rings: [parkBoundary],
+          spatialReference: { wkid: 4326 }  // Use WGS84 geographic coordinates
+        });
+
+        // Define the style for the polygon
+        const parkSymbol = {
+          type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+          color: [0, 123, 255, 0.1],  // Light blue with 10% opacity
+          outline: {
+            color: [255, 255, 255],
+            width: 1
+          }
+        };
+
+        // Define the popup template for the polygon
+        const polygonPopupTemplate = {
+          title: "{PolygonName}",
+          content: "{PolygonDescription}"
+        };
+
+        const polygonAttributes = {
+          PolygonName: "Sagarmatha National Park",
+          PolygonDescription: "This is a simplified representation of Sagarmatha National Park."
+        };
+
+        // Create a graphic from the polygon geometry and symbol
+        const parkGraphic = new Graphic({
+          geometry: parkPolygon,
+          symbol: parkSymbol,
+          attributes: polygonAttributes,
+          popupTemplate: polygonPopupTemplate
+        });
+
+
+        // Add the graphic to the map
+        graphicsLayer.add(parkGraphic);
+
+        //Define a popup template for the feature layer
+        const featureLayerPopupTemplate = {
+          title: "Places of Worship",
+          content: "<b>Name:</b> {name} <br><b>Class:</b> {fclass} <br><b>District:</b> {district}"
+        }
+
+
+        // Create a FeatureLayer from a service (place of worship)
+        const placesofworship = new FeatureLayer({
+          url: "https://livingatlas.esri.in/server/rest/services/Place_of_Worship/FeatureServer",
+      
+        //add the popup template to the feature layer
+        outFields: ["name", "fclass", "district"],
+        popupTemplate: featureLayerPopupTemplate
+        });
+
+        // Add the feature layer to the map
+        map.add(placesofworship);
+  
+        //define the popup template for the feature layer (transport)
+        const featureLayerPopupTemplate_transport = {
+          title: "Transport",
+          content: "<b>Name:</b> {name} <br><b>Class:</b> {fclass} <br><b>District:</b> {district}"
+        }
+        
+        //const to make airport labels
+        const airportLabels = {
+          symbol: {
+            type: "text",
+            color: "#FFFFFF",
+            haloColor: "#5E8D74",
+            haloSize: "2px",
+            font: {
+              size: 12,
+              family: "Noto Sans",
+              style: "italic",
+              weight: "normal"
+            }
+          },
+          labelPlacement: "above-center",
+          labelExpressionInfo: {
+            expression: "$feature.name"
+          }
+        };
+
+        //const for helicopter labels
+        const helicopterLabels = {
+          symbol: {
+            type: "text",
+            color: "#FFFFFF",
+            haloColor: "#1A5276",
+            haloSize: "2px",
+            font: {
+              size: 12,
+              family: "Noto Sans",
+              style: "italic",
+              weight: "normal"
+            }
+          },
+          labelPlacement: "above-center",
+          labelExpressionInfo: {
+            expression: "$feature.name"
+          }
+        };
+
+        //const for icon airport
+        const airportRenderer = {
+          type: "simple",
+          symbol: {
+            type: "picture-marker",
+            url: "https://dski97.github.io/agol-dom/outline_local_airport_black_24dp.png",
+            width: "18px",
+            height: "18px"
+          }
+        };
+
+        //const for icon helicopter
+        const helicopterRenderer = {
+          type: "simple",
+          symbol: {
+            type: "picture-marker",
+            url: "https://dski97.github.io/agol-dom/heliport.png",
+            width: "18px",
+            height: "18px"
+          }};
+
+        // Create a FeatureLayer from a service (transport) - airport
+        const transportAirport = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Transport/FeatureServer",
+          renderer: airportRenderer,
+          definitionExpression: "fclass = 'Airport'",
+          outFields: ["name", "fclass", "district"],
+          labelingInfo: [airportLabels],
+          popupTemplate: featureLayerPopupTemplate_transport
+        });
+        
+        // Create a FeatureLayer from a service (transport) - helicopter
+        const transportHelicopter = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Transport/FeatureServer",
+          renderer: helicopterRenderer,
+          definitionExpression: "fclass = 'Helipad'",
+          outFields: ["name", "fclass", "district"],
+          labelingInfo: [helicopterLabels],
+          popupTemplate: featureLayerPopupTemplate_transport
+        });
+      
+        // Add the feature layer to the map
+        map.add(transportAirport);
+        map.add(transportHelicopter);
+
+  
+
+      // Expand widget for basemap gallery
+      const bgExpand = new Expand({
+        view: view,
+        content: new BasemapGallery({
+          view: view
+        })
+      });
+      view.ui.add(bgExpand, "top-right");
+    
+
+      // Create a Locate widget instance and add it to the view
+      const locate = new Locate({
+        view: view
+      });
+      view.ui.add(locate, "top-left");
+
+      // Create a Search widget instance and add it to the view
+      const searchWidget = new Search({
+        view: view
+      });
+      view.ui.add(searchWidget, {
+        position: "top-left",
+        index: 2
+      });
+    });
+
+     
   </script>
-<!-- css to make a full screen map -->
-<style>
-  html,
-  body,
-  #viewDiv {
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-  }
-</style>
+
+
+
+  <!-- css to make a full screen map-->
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
 
 </head>
 <body>
 
-<!-- the div to displays the map  -->
-<div id="viewDiv"></div>
+  <!-- the div to displays the map-->
+  <div id="viewDiv"></div>
 
 </body>
 </html>
