@@ -19,7 +19,9 @@
       "esri/views/MapView",
       "esri/layers/GraphicsLayer",
       "esri/Graphic",
-  ], function(esriConfig, Map, MapView, GraphicsLayer, Graphic) {
+      "esri/geometry/Point",
+      "esri/geometry/Polyline",
+  ], function(esriConfig, Map, MapView, GraphicsLayer, Graphic, Point, Polyline) {
 
       esriConfig.apiKey = "AAPK38961f69b763446a8a93074277f6c658monrdVmdEHRWTyT7kHHF_0qYVXyDdCF8RQ2Z8pUR4r52dvVz8Ytp2CV1iEQsh2yt";
       const map = new Map({
@@ -79,6 +81,48 @@
         // Add the graphic to the layer
         graphicsLayer.add(pointGraphic);
       });  
+
+      // Define the path of the hiking trail as an array of points
+     const trailPath = [
+      [86.9250, 27.9881],  // Mount Everest
+      [86.7140, 27.8069]   // Namche Bazaar
+      ];
+
+      // Create a polyline geometry from the path
+      const trailPolyline = new Polyline({
+        paths: [trailPath],
+        spatialReference: { wkid: 4326 } // Use WGS84 geographic coordinates
+      });
+
+      // Define the style for the polyline
+      const trailSymbol = {
+        type: "simple-line",
+        color: [255, 0, 0, 0.8], // Red with 80% opacity
+        width: 3
+      };
+
+      // Define the popup template for the polyline
+      const polylinePopupTemplate = {
+        title: "{PolylineName}",
+        content: "{PolylineDescription}"
+      };
+
+      const polylineAttributes = {
+        PolylineName: "Trail to Namche Bazaar",
+        PolylineDescription: "This is a simplified path from Mount Everest to Namche Bazaar, the closest town to Mount Everest."
+      };
+
+      // Create a graphic from the polyline geometry and symbol
+      const trailGraphic = new Graphic({
+        geometry: trailPolyline,
+        symbol: trailSymbol,
+        attributes: polylineAttributes,
+        popupTemplate: polylinePopupTemplate
+      });
+
+
+      // Add the graphic to the map
+      graphicsLayer.add(trailGraphic);
        
   </script>
 <!-- css to make a full screen map -->
