@@ -14,21 +14,19 @@
   <script>
   
     require([
-     "esri/config",
+      "esri/config",
       "esri/Map",
       "esri/views/MapView",
-
-      //adding in the modules for the graphic and graphic layer
-      "esri/Graphic",  
       "esri/layers/GraphicsLayer",
       "esri/Graphic",
-    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, GraphicsLayer, Graphic) {
+  ], function(esriConfig, Map, MapView, GraphicsLayer, Graphic) {
 
       esriConfig.apiKey = "AAPK38961f69b763446a8a93074277f6c658monrdVmdEHRWTyT7kHHF_0qYVXyDdCF8RQ2Z8pUR4r52dvVz8Ytp2CV1iEQsh2yt";
       const map = new Map({
         basemap: "arcgis-topographic" // Basemap layer
       });
 
+      //view of Gainesville, FL
       const view = new MapView({
           map: map,
           center: [-82.3248, 29.6516], // Longitude, latitude
@@ -46,12 +44,7 @@
           longitude: -82.3248,    //long lat of Gainesville
           latitude: 29.6516
         };
-        const point2 = { //Create a second point
-          type: "point",
-          longitude: -82.3431,    //long lat of Gainesville,
-          latitude: 29.6499
-        };
-          
+
         // defining the marker style
         const simpleMarkerSymbol = {  
           type: "simple-marker",  
@@ -63,35 +56,15 @@
           }
         };
 
-        const simpleMarkerSymbol2 = {
-          type: "simple-marker",
-          style: "triangle", // Change this to "triangle"
-          color: [0, 139, 0],  // Color green
-          outline: {  
-            color: [255, 255, 255], // White  
-            width: 2
-          }
-        };
-
         //defining popup properties
         const popupTemplate = {  
           title: "Gainesville",  
           content: "Welcome to Gainesville, FL: The home of GEOGATORS!"
-        };
-
-        const popupTemplate2 = {  
-          title: "Second Point",  
-           content: "Welcome to the second point!"
-        };
+        }
 
         const attributes = {  
           name: "Gainesville",  
           location: "Florida"
-        };
-
-        const attributes2 = {  
-           name: "Second Point",  
-           location: "Location of the second point"
         };
 
          // Create the graphic
@@ -102,14 +75,10 @@
           //adding popup properties
           popupTemplate: popupTemplate,
           attributes: attributes,
-
-          popupTemplate: popupTemplate2,
-          attributes: attributes2
         });
         // Add the graphic to the layer
         graphicsLayer.add(pointGraphic);
-        graphicsLayer.add(pointGraphic2);
-      });
+      });  
        
   </script>
 <!-- css to make a full screen map -->
@@ -132,4 +101,5 @@
 
 </body>
 </html>
+
 
