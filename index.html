@@ -74,43 +74,47 @@
         };
 
         //defining popup properties
-        constpopupTemplate = {  
+        const popupTemplate = {  
           title: "Gainesville",  
-          content: "Welcome to Gainesville, FL: The home of GATORS!"
+          content: "Welcome to Gainesville, FL: The home of GEOGATORS!"
         };
-        const popupTemplate2 = {
-          title: "Turlington Plaza",  
-          content: "Welcome to Turlington Plaza: The home of GEOGATORS!"
+
+        const popupTemplate2 = {  
+          title: "Second Point",  
+           content: "Welcome to the second point!"
         };
-        
+
         const attributes = {  
           name: "Gainesville",  
           location: "Florida"
         };
-        const attributes2 = {
-          name: "Turlington Plaza",  
-          location: "Florida"
+
+        const attributes2 = {  
+           name: "Second Point",  
+           location: "Location of the second point"
         };
 
-        // Create the graphic
-        const pointGraphic = new Graphic({  
+         // Create the graphic
+         const pointGraphic = new Graphic({
           geometry: point,
           symbol: simpleMarkerSymbol,
-          attributes: attributes,
-          popupTemplate: popupTemplate
-        });
 
         const pointGraphic2 = new Graphic({
           geometry: point2,
           symbol: simpleMarkerSymbol2,
-          attributes: attributes2,
-          popupTemplate: popupTemplate2
         });
+          
+          //adding popup properties
+          popupTemplate: popupTemplate,
+          attributes: attributes,
 
+          popupTemplate: popupTemplate2,
+          attributes: attributes2
+        });
         // Add the graphic to the layer
         graphicsLayer.add(pointGraphic);
         graphicsLayer.add(pointGraphic2);
-    });
+      });
        
   </script>
 <!-- css to make a full screen map -->
