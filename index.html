@@ -56,11 +56,11 @@
       const simpleMarkerSymbol = {
         type: "simple-marker",
         style: "square",
-        size: "20px",
+        size: "25px",
         color: [226, 119, 40], // Orange
         outline: {
           color: [255, 255, 255], // White
-          width: 2
+          width: 3
         }
       };
 
@@ -70,8 +70,8 @@
         content: "{Description}"
       }
       const attributes = {
-        Name: "Mount Everest",
-        Description: "The highest mountain in the world (Elevation of 29,035ft.)"
+        Name: "Gainesville, FL",
+        Description: "Welcome to Gainesville, FL: The home of GEOGATORS!"
       }
 
       //point together the geometry with the symbol to create a graphic
@@ -85,23 +85,28 @@
       //add the graphic to the view
       graphicsLayer.add(pointGraphic);
 
-     // Define the path of the hiking trail as an array of points
-     const trailPath = [
-      [86.9250, 27.9881],  // Mount Everest
-      [86.7140, 27.8069]   // Namche Bazaar
-      ];
+     // Define the biking areas of the Geogators as an array of points
+     const polyline = {
+      type: "polyline",
+      rings: [
+        [-82.3431, 29.6499], // Turlington Plaza
+        [-82.3485, 29.6461], //Reitz Union
+      ] 
+    };
 
-      // Create a polyline geometry from the path
-      const trailPolyline = new Polyline({
-        paths: [trailPath],
-        spatialReference: { wkid: 4326 } // Use WGS84 geographic coordinates
+      // Create a polyline geometry from the array of points
+      const geogatorPolyline = new Polyline({
+      })
+        paths: polyline,
+        spatialReference; { wkid: 4326 }  // Use WGS84 geographic coordinates
       });
+      
 
       // Define the style for the polyline
-      const trailSymbol = {
-        type: "simple-line",
-        color: [255, 0, 0, 0.8], // Red with 80% opacity
-        width: 3
+      const geogatorSymbol = {
+        type: "simple-line",  // autocasts as new SimpleLineSymbol()
+        color: [0, 0, 119],  // blue
+        width: 4
       };
 
       // Define the popup template for the polyline
@@ -109,23 +114,21 @@
         title: "{PolylineName}",
         content: "{PolylineDescription}"
       };
-
       const polylineAttributes = {
-        PolylineName: "Trail to Namche Bazaar",
-        PolylineDescription: "This is a simplified path from Mount Everest to Namche Bazaar, the closest town to Mount Everest."
+        PolylineName: "Geogator Biking Areas",
+        PolylineDescription: "This is a part of the biking areas of the Geogators."
       };
 
       // Create a graphic from the polyline geometry and symbol
-      const trailGraphic = new Graphic({
-        geometry: trailPolyline,
-        symbol: trailSymbol,
+      const geogatorGraphic = new Graphic({
+        geometry: geogatorPolyline,
+        symbol: geogatorSymbol,
         attributes: polylineAttributes,
         popupTemplate: polylinePopupTemplate
       });
 
-
       // Add the graphic to the map
-      graphicsLayer.add(trailGraphic);
+      graphicsLayer.add(geogatorGraphic);
 
       // Rough approximation of the boundaries of Sagarmatha National Park
       const parkBoundary = [
