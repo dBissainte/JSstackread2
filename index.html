@@ -20,8 +20,9 @@
 
       //adding in the modules for the graphic and graphic layer
       "esri/Graphic",  
-      "esri/layers/GraphicsLayer" 
-    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer) {
+      "esri/layers/GraphicsLayer",
+      "esri/layers/GraphicsLayer",
+    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, GraphicsLayer) {
 
       esriConfig.apiKey = "AAPK38961f69b763446a8a93074277f6c658monrdVmdEHRWTyT7kHHF_0qYVXyDdCF8RQ2Z8pUR4r52dvVz8Ytp2CV1iEQsh2yt";
       const map = new Map({
@@ -92,27 +93,24 @@
         };
 
         // Create the graphic
-           const pointGraphic = new Graphic({  
-             geometry: point,
-             symbol: simpleMarkerSymbol,
-             attributes: attributes
-          });
+        const pointGraphic = new Graphic({  
+          geometry: point,
+          symbol: simpleMarkerSymbol,
+          attributes: attributes,
+          popupTemplate: popupTemplate
+        });
 
-           const pointGraphic2 = new Graphic({
-             geometry: point2,
-             symbol: simpleMarkerSymbol2
-         });
-        
-        //adding popup properties
-          popupTemplate: popupTemplate,
-          attributes; attributes;
-          popupTemplate2: popupTemplate2,
-          attributes2; attributes2;
+        const pointGraphic2 = new Graphic({
+          geometry: point2,
+          symbol: simpleMarkerSymbol2,
+          attributes: attributes2,
+          popupTemplate: popupTemplate2
         });
 
         // Add the graphic to the layer
         graphicsLayer.add(pointGraphic);
         graphicsLayer.add(pointGraphic2);
+    });
        
   </script>
 <!-- css to make a full screen map -->
@@ -135,3 +133,4 @@
 
 </body>
 </html>
+
