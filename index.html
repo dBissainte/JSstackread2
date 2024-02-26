@@ -130,35 +130,24 @@
       // Add the graphic to the map
       graphicsLayer.add(geogatorGraphic);
 
-      // Rough approximation of the boundaries of Sagarmatha National Park
-      const parkBoundary = [
-        [86.7, 27.7],  
-        [86.8, 27.75],
-        [86.9, 27.76], 
-        [87.0, 27.77], 
-        [87.1, 27.8],  
-        [87.2, 27.85], 
-        [87.1, 27.9],  
-        [87.0, 27.95], 
-        [86.9, 28.0],  
-        [86.8, 28.05], 
-        [86.7, 28.1],  
-        [86.6, 28.05], 
-        [86.5, 28.0],  
-        [86.6, 27.85], 
-        [86.7, 27.7]   
-    ]
-
+      // Define the boundaries of Ben Hill Griffin Stadium as an array of points
+      const stadiumBoundary = [
+        [-82.3486, 29.6493], // SW corner
+        [-82.3486, 29.6503], // NW corner
+        [-82.3476, 29.6503], // NE corner
+        [-82.3476, 29.6493], // SE corner
+        [-82.3486, 29.6493]  // SW corner
+      ];
         // Create a polygon geometry
-        const parkPolygon = new Polygon({
-          rings: [parkBoundary],
+        const stadiumPolygon = new Polygon({
+          rings: [stadiumBoundary],
           spatialReference: { wkid: 4326 }  // Use WGS84 geographic coordinates
         });
 
         // Define the style for the polygon
-        const parkSymbol = {
+        const stadiumSymbol = {
           type: "simple-fill",  // autocasts as new SimpleFillSymbol()
-          color: [0, 123, 255, 0.1],  // Light blue with 10% opacity
+          color: [255, 0, 0, 0.1],  // Red with 10% opacity
           outline: {
             color: [255, 255, 255],
             width: 1
@@ -172,21 +161,20 @@
         };
 
         const polygonAttributes = {
-          PolygonName: "Sagarmatha National Park",
-          PolygonDescription: "This is a simplified representation of Sagarmatha National Park."
+          PolygonName: "Ben Hill Griffin Stadium",
+          PolygonDescription: "This is the SWAMP! The home of the Florida Gators."
         };
 
         // Create a graphic from the polygon geometry and symbol
-        const parkGraphic = new Graphic({
-          geometry: parkPolygon,
-          symbol: parkSymbol,
+        const stadiumGraphic = new Graphic({
+          geometry: stadiumPolygon,
+          symbol: stadiumSymbol,
           attributes: polygonAttributes,
           popupTemplate: polygonPopupTemplate
         });
 
-
         // Add the graphic to the map
-        graphicsLayer.add(parkGraphic);
+        graphicsLayer.add(stadiumGraphic);
 
         //Define a popup template for the feature layer
         const featureLayerPopupTemplate = {
