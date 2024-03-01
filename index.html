@@ -97,9 +97,8 @@
 
       // Create a polyline geometry from the array of points
       const geogatorPolyline = new Polyline({
-      })
         paths: polyline,
-        spatialReference; { wkid: 4326 }  // Use WGS84 geographic coordinates
+        spatialReference: { wkid: 4326 }  // Use WGS84 geographic coordinates
       });
       
 
@@ -185,7 +184,7 @@
 
         //add the feature layer to the map
         map.add(featureLayer);
-        ;
+        
         
 
       // Define a pop-up for usaeduLayer
