@@ -176,37 +176,34 @@
         // Add the graphic to the map
         graphicsLayer.add(stadiumGraphic);
 
-        //Define a popup template for the feature layer
-        const featureLayerPopupTemplate = {
-          title: "Places of Worship",
-          content: "<b>Name:</b> {name} <br><b>Class:</b> {fclass} <br><b>District:</b> {district}"
-        }
+       //adding the construct for the feature layer
+        const featureLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Florida_County_Boundaries/FeatureServer/0"
 
+        });
 
-        // const usaeduLayer = new FeatureLayer({
-           url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer" //get URL from AGOL Item Page
-        // });
-                map.add(usaeduLayer);
-      
+        //add the feature layer to the map
+        map.add(featureLayer);
+        ;
         
 
-// Define a pop-up for usaeduLayer
-const popupEduusa = {
-  "title": "EDUs",
-  "content": "<b>Name:</b> {NAME}<br><b>Total Enrollment:</b> {TOT_ENROLL}<br>"
-}
+      // Define a pop-up for usaeduLayer
+        const popupEduusa = {
+      "title": "EDUs",
+      "content": "<b>Name:</b> {NAME}<br><b>Total Enrollment:</b> {TOT_ENROLL}<br>"
+       }
 
-//adding the Const for the feature layer
-const usaeduLayer = new FeatureLayer({
-url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+    //adding the Const for the feature layer
+    const usaeduLayer = new FeatureLayer({
+    url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
 
-//adding the popup here
-outFields: ["NAME","TOT_ENROLL"],
-popupTemplate: popupEduusa
- });
+  //adding the popup here
+  outFields: ["NAME","TOT_ENROLL"],
+  popupTemplate: popupEduusa
+  });
 
-//adding the feature layer to the map
-map.add(usaeduLayer);
+  //adding the feature layer to the map
+  map.add(usaeduLayer);
 
 
      
