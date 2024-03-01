@@ -26,7 +26,8 @@
       "esri/geometry/Polyline",
       "esri/geometry/Polygon",
       "esri/layers/FeatureLayer",
-    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Expand, Graphic, GraphicsLayer, Polyline, Polygon, FeatureLayer) {
+      "esri/symbols/SimpleMarkerSymbol"
+    ], function(esriConfig, Map, MapView, BasemapGallery, Locate, Search, Expand, Graphic, GraphicsLayer, Polyline, Polygon, FeatureLayer, SimpleMarkerSymbol) {
 
       esriConfig.apiKey = "AAPK38961f69b763446a8a93074277f6c658monrdVmdEHRWTyT7kHHF_0qYVXyDdCF8RQ2Z8pUR4r52dvVz8Ytp2CV1iEQsh2yt";
       const map = new Map({
@@ -204,7 +205,9 @@
 
   //adding the feature layer to the map
   map.add(usaeduLayer);
-     
+  // Remove the unnecessary closing curly braces
+  // });
+  
   </script>
 
 
