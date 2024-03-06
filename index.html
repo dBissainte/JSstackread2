@@ -13,19 +13,72 @@
   <!-- Adding the modules, API key, and map constant needed for a full screen map app-->
   <script>
 
-require([  
-"esri/config",  
-"esri/Map",  
-"esri/views/MapView",   
-"esri/Graphic",  
-"esri/layers/GraphicsLayer"   
-], function(esriConfig,Map, MapView, Graphic, GraphicsLayer) {
+     require([  
+     "esri/config",  
+     "esri/Map",  
+     "esri/views/MapView",   
+     "esri/Graphic",  
+     "esri/layers/GraphicsLayer"   
+    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer) {
 
-  esriConfig.apiKey = "AAPK38961f69b763446a8a93074277f6c658monrdVmdEHRWTyT7kHHF_0qYVXyDdCF8RQ2Z8pUR4r52dvVz8Ytp2CV1iEQsh2yt";
+     esriConfig.apiKey = "AAPK38961f69b763446a8a93074277f6c658monrdVmdEHRWTyT7kHHF_0qYVXyDdCF8RQ2Z8pUR4r52dvVz8Ytp2CV1iEQsh2yt";
       const map = new Map({
         basemap: "arcgis-topographic" // Basemap layer
       });
 
+      //view of Gainesville, FL
+      const view = new MapView({
+        map: map,
+        center:[-82.3248, 29.6516], // Longitude, latitude
+          zoom: 13, // Zoom level
+        container: "viewDiv" // Div element
+      });
+
+      // adding the constructor for the graphics layer
+       const graphicsLayer = new GraphicsLayer();  
+       map.add(graphicsLayer);
+
+      //deining the geometry of the point for Gainesville, FL
+      const point = {
+        type: "point",
+        longitude: -82.3248, // Longitude
+        latitude: 29.6516 // Latitude
+      };
+
+      // defining the marker style for the point
+      const simpleMarkerSymbol = {
+        type: "simple-marker",
+        style: "square",
+        color: [226, 119, 40], // Orange
+        outline: {
+          color: [255, 255, 255], // White
+          width: 2
+        }
+      };
+
+      // defining popup properties
+      const popupTemplate = {
+       title: "{Name}",
+       content: "{Description}"
+      }
+      const attributes = {
+       Name: "Stevie Ray Vaughan Statue",
+       Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick"
+      }
+
+      // creating the graphic for the point
+      const pointGraphic = new Graphic({
+        geometry: point,
+        symbol: simpleMarkerSymbol,
+
+        // adding popup properties
+         attributes: attributes,
+         popupTemplate: popupTemplate
+      });
+
+      // adding the graphic to the graphics layer
+      graphicsLayer.add(pointGraphic);
+    });       
 
 </script>
 
@@ -49,3 +102,4 @@ require([
 
 </body>
 </html>
+```
