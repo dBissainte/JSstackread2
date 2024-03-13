@@ -18,8 +18,9 @@
      "esri/Map",  
      "esri/views/MapView",   
      "esri/Graphic",  
-     "esri/layers/GraphicsLayer"   
-    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer) {
+     "esri/layers/GraphicsLayer",
+     "esri/layers/FeatureLayer"  
+    ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
 
      esriConfig.apiKey = "AAPK38961f69b763446a8a93074277f6c658monrdVmdEHRWTyT7kHHF_0qYVXyDdCF8RQ2Z8pUR4r52dvVz8Ytp2CV1iEQsh2yt";
       const map = new Map({
@@ -35,8 +36,8 @@
       });
 
       // adding the constructor for the graphics layer
-       const graphicsLayer = new GraphicsLayer();  
-       map.add(graphicsLayer);
+      const graphicsLayer = new GraphicsLayer();  
+      map.add(graphicsLayer);
 
       //defining the geometry of the point for Gainesville, FL
       const point = {
@@ -58,13 +59,14 @@
 
       // defining popup properties
       const popupTemplate = {
-       title: "{Name}",
-       content: "{Description}"
-      }
+        title: "{Name}",
+        content: "{Description}"
+      };
+      
       const attributes = {
-       Name: "Gainesville, FL",
-       Description: "University Of Florida, Go Gators!"
-      }
+        Name: "Gainesville, FL",
+        Description: "University Of Florida, Go Gators!"
+      };
 
       // creating the graphic for the point
       const pointGraphic = new Graphic({
@@ -72,8 +74,8 @@
         symbol: simpleMarkerSymbol,
 
         // adding popup properties
-         attributes: attributes,
-         popupTemplate: popupTemplate
+        attributes: attributes,
+        popupTemplate: popupTemplate
       });
 
       // adding the graphic to the graphics layer
@@ -177,6 +179,14 @@
 
       // Adding the polyline graphic to the graphics layer
       graphicsLayer.add(polylineGraphic);
+
+      // Adding feature layer for Public Schoo Locations in the USA
+      const Public_School_Location = new FeatureLayer({
+        url: "https://services1.arcgis.com/Ua5sjt3LWTPigjyD/arcgis/rest/services/Public_School_Location_201819/FeatureServer"
+      });
+
+      // Adding the feature layer to the map
+      map.add(Public_School_Location);
     });
 
   </script>
