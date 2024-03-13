@@ -179,14 +179,6 @@
 
       // Adding the polyline graphic to the graphics layer
       graphicsLayer.add(polylineGraphic);
-
-      // Adding feature layer for Public Schoo Locations in the USA
-      const Public_School_Location = new FeatureLayer({
-        url: "https://services1.arcgis.com/Ua5sjt3LWTPigjyD/arcgis/rest/services/Public_School_Location_201819/FeatureServer"
-      });
-
-      // Adding the feature layer to the map
-      map.add(Public_School_Location);
     });
 
   </script>
