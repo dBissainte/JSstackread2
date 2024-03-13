@@ -179,27 +179,67 @@
 
       // Adding the polyline graphic to the graphics layer
       graphicsLayer.add(polylineGraphic);
-    });
 
+      // Define the popup template for public school locations
+      const popuppublic_school_Location = {
+        title: "{NAME}",
+        content: [
+          {
+            type: "fields",
+            fieldInfos: [
+              {
+                fieldName: "NAME",
+                label: "Name"
+              },
+              {
+                fieldName: "CITY",
+                label: "City"
+              },
+              {
+                fieldName: "CBSATYPE",
+                label: "CBSA Type"
+              },
+              {
+                fieldName: "SCHOOLYEAR",
+                label: "School Year"
+              }
+            ]
+          }
+        ]
+      };
+
+      // Adding feature layer for Public School Locations in the USA
+      const Public_School_Location = new FeatureLayer({
+        url: "https://services1.arcgis.com/Ua5sjt3LWTPigjyD/arcgis/rest/services/Public_School_Location_201819/FeatureServer",
+        outFields: ["NAME", "CITY", "CBSATYPE", "SCHOOLYEAR"],
+        popupTemplate: popuppublic_school_Location
+      });
+
+      // Adding the feature layer to the map
+      map.add(Public_School_Location);
+
+    });
+    
   </script>
 
   <!-- css to make a full screen map-->
   <style>
-    html,
-    body,
+    html, 
+    body, 
     #viewDiv {
       padding: 0;
       margin: 0;
       height: 100%;
       width: 100%;
-    }
+    } 
   </style>
 
 </head>
 <body>
 
-<!-- the div to displays the map-->
-<div id="viewDiv"></div>
+  <!-- div element to display the map -->
+  <div id="viewDiv"></div>
 
 </body>
 </html>
+```
