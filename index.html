@@ -38,7 +38,7 @@
        const graphicsLayer = new GraphicsLayer();  
        map.add(graphicsLayer);
 
-      //deining the geometry of the point for Gainesville, FL
+      //defining the geometry of the point for Gainesville, FL
       const point = {
         type: "point",
         longitude: -82.3248, // Longitude
@@ -63,7 +63,7 @@
       }
       const attributes = {
        Name: "Gainesville, FL",
-       Description: "Welcome to Gainesville, FL: The home of GEOGATORS!"
+       Description: "University Of Florida, Go Gators!"
       }
 
       // creating the graphic for the point
@@ -78,25 +78,110 @@
 
       // adding the graphic to the graphics layer
       graphicsLayer.add(pointGraphic);
+
+      // Adding a point for the airport
+      const airportCoords = [-82.2781, 29.6903]; // Airport coordinates
+      const airportPoint = {
+        type: "point",
+        longitude: airportCoords[0], // Longitude
+        latitude: airportCoords[1] // Latitude
+      };
+
+      // Marker style for the airport
+      const airportSymbol = {
+        type: "simple-marker",
+        style: "square",
+        color: [226, 119, 40], // Orange
+        outline: {
+          color: [255, 255, 255], // White
+          width: 2
+        }
+      };
+
+      // Popup template for the airport
+      const airportPopupTemplate = {
+        title: "Airport",
+        content: "Welcome to Gainesville, FL: The home of GEOGATORS!"
+      };
+
+      // Graphic for the airport
+      const airportGraphic = new Graphic({
+        geometry: airportPoint,
+        symbol: airportSymbol,
+        popupTemplate: airportPopupTemplate
+      });
+
+      // Adding the airport graphic to the graphics layer
+      graphicsLayer.add(airportGraphic);
+
+      // Adding a point for Ben Hill Griffin Stadium
+      const stadiumCoords = [-82.3486, 29.6498]; // Stadium coordinates
+      const stadiumPoint = {
+        type: "point",
+        longitude: stadiumCoords[0], // Longitude
+        latitude: stadiumCoords[1] // Latitude
+      };
+
+      // Marker style for the stadium
+      const stadiumSymbol = {
+        type: "simple-marker",
+        style: "square",
+        color: [226, 119, 40], // Orange
+        outline: {
+          color: [255, 255, 255], // White
+          width: 2
+        }
+      };
+
+      // Popup template for the stadium
+      const stadiumPopupTemplate = {
+        title: "Ben Hill Griffin Stadium",
+        content: "This is the SWAMP"
+      };
+
+      // Graphic for the stadium
+      const stadiumGraphic = new Graphic({
+        geometry: stadiumPoint,
+        symbol: stadiumSymbol,
+        popupTemplate: stadiumPopupTemplate
+      });
+
+      // Adding the stadium graphic to the graphics layer
+      graphicsLayer.add(stadiumGraphic);
+
+      // Creating polyline geometry to connect the points
+      const polylineGeometry = {
+        type: "polyline",
+        paths: [[point.longitude, point.latitude], [airportCoords[0], airportCoords[1]], [stadiumCoords[0], stadiumCoords[1]], [point.longitude, point.latitude]]
+      };
+
+      // Defining polyline symbol properties
+      const polylineSymbol = {
+        type: "simple-line",
+        color: [0, 0, 255], // Blue color
+        width: 2
+      };
+
+      // Popup template for the polyline
+      const polylinePopupTemplate = {
+        title: "Route",
+        content: "This is the route from the GEOGATORS to the SWAMP"
+      };
+
+      // Creating graphic for the polyline
+      const polylineGraphic = new Graphic({
+        geometry: polylineGeometry,
+        symbol: polylineSymbol,
+        popupTemplate: polylinePopupTemplate
+      });
+
+      // Adding the polyline graphic to the graphics layer
+      graphicsLayer.add(polylineGraphic);
     });
 
   </script>
 
   <!-- css to make a full screen map-->
-  <style>
-    html,
-    body,
-    #viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
-
-</script>
-
-<!-- css to make a full screen map-->
   <style>
     html,
     body,
@@ -116,5 +201,3 @@
 
 </body>
 </html>
-```
-
