@@ -235,13 +235,34 @@
         }
       };
 
+       //const to make the airport labels visible
+       const airportLabels = {
+        symbol: {
+          type: "text",
+          color: "green",
+          haloColor: "yellow",
+          haloSize: "2px",
+          font: {
+            size: "12px",
+            family: "Noto Sans",
+            style: "italic",
+            weight: "normal"
+          }
+        },
+        labelPlacement: "above-center",
+        labelExpressionInfo: {
+          expression: "$feature.Fac_Name"
+        }
+      };
+
       // Adding feature layer for airports in the USA
       const Airports = new FeatureLayer({
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/US_Airports_1/FeatureServer",
         outFields: ["Fac_Name", "CITY", "Owner_Type"],
         popupTemplate: popupAirports,
         renderer: airportRenderer, //calling the icon
-        definitionExpression: "Fac_Type = 'AIRPORT'"  //filtering the feature layer
+        definitionExpression: "Fac_Type = 'AIRPORT'",  //filtering the feature layer
+        labelingInfo: [airportLabels] //calling the labels
       });
 
       // Adding the feature layer to the map
