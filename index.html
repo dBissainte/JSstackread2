@@ -218,6 +218,21 @@
       // Adding the feature layer to the map
       map.add(Public_School_Location);
 
+      // Define the popup template for airports
+      const popupAirports = {
+        title: "Airports",
+        content: "Name: {Fac_Name} <br> City: {CITY} <br> Type: {Owner_Type}"
+      };
+
+      // Adding feature layer for airports in the USA
+      const Airports = new FeatureLayer({
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/US_Airports_1/FeatureServer",
+        outFields: ["Fac_Name", "CITY", "Owner_Type"],
+        popupTemplate: popupAirports
+      });
+
+      // Adding the feature layer to the map
+      map.add(Airports);
     });
     
   </script>
