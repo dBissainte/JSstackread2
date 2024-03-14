@@ -224,11 +224,23 @@
         content: "Name: {Fac_Name} <br> City: {CITY} <br> Ownership: {Owner_Type}"
       };
 
+      // Setting up the icon
+      const airportRenderer = {
+        type: "simple",
+        symbol: {
+          type: "picture-marker",
+          url: "https://raw.githubusercontent.com/dBissainte/JSstackread2/main/outline_local_airport_black_24dp.png",
+          width: "18px",
+          height: "18px"
+        }
+      };
+
       // Adding feature layer for airports in the USA
       const Airports = new FeatureLayer({
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/US_Airports_1/FeatureServer",
         outFields: ["Fac_Name", "CITY", "Owner_Type"],
-        popupTemplate: popupAirports
+        popupTemplate: popupAirports,
+        renderer: airportRenderer
       });
 
       // Adding the feature layer to the map
