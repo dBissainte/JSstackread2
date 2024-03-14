@@ -240,7 +240,8 @@
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/US_Airports_1/FeatureServer",
         outFields: ["Fac_Name", "CITY", "Owner_Type"],
         popupTemplate: popupAirports,
-        renderer: airportRenderer
+        renderer: airportRenderer, //calling the icon
+        definitionExpression: "Fac_Type = 'AIRPORT'"  //filtering the feature layer
       });
 
       // Adding the feature layer to the map
